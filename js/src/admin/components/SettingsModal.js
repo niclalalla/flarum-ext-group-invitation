@@ -23,7 +23,7 @@ export default class InviteModal extends Modal {
 
         this.invitations = null;
 
-        app.store.find('group-invitations').then(invitations => {
+        app.store.find('invitations').then(invitations => {
             this.invitations = invitations;
             m.redraw();
         });

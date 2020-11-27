@@ -6,10 +6,10 @@ import GetRolePage from './components/GetRolePage';
 /* global m */
 
 app.initializers.add('clarkwinkelmann-group-invitation', () => {
-    app.store.models['group-invitations'] = Invitation;
+    app.store.models['invitations'] = Invitation;
 
     app.routes.clarkwinkelmannGroupInvitation = {
-        path: '/get-role/:code',
+        path: '/invitations-role/:code',
         component: GetRolePage,
     };
 

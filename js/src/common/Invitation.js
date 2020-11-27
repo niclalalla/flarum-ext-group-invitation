@@ -11,6 +11,6 @@ export default class Invitation extends Model {
     group = Model.hasOne('group');
 
     apiEndpoint() {
-        return '/group-invitations' + (this.exists ? '/' + this.data.id : '');
+        return '/invitations' + (this.exists ? '/' + this.data.id : '');
     }
 }

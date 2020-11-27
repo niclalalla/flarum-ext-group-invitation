@@ -18,7 +18,7 @@ export default class SignUpPage extends Page {
 
         this.invitation = null;
 
-        app.store.find('group-invitations', m.route.param('code'), {}, {
+        app.store.find('invitations', m.route.param('code'), {}, {
             errorHandler: () => {
                 this.invitation = false; // Not found
                 m.redraw();
