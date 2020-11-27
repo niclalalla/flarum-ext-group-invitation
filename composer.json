@@ -1,6 +1,6 @@
 {
     "name": "niclalalla/flarum-ext-group-invitation",
-    "description": "Invite users into groups via links and give point to the inviter",
+    "description": "Invite users into groups via links and give point to the inviter.",
     "keywords": [
         "flarum"
     ],
