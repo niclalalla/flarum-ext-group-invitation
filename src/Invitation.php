@@ -11,6 +11,7 @@ use Flarum\Group\Group;
  * @property string $code
  * @property int $usage_count
  * @property int $max_usage
+ * @property string $inviter
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *

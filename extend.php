@@ -18,11 +18,11 @@ return [
     new Extend\Locales(__DIR__ . '/resources/locale'),
 
     (new Extend\Routes('api'))
-        ->get('/invitations', 'group-invitation.index', Controllers\IndexController::class)
-        ->post('/invitations', 'group-invitation.store', Controllers\StoreController::class)
-        ->get('/invitations/{code:[a-zA-Z0-9_-]+}', 'group-invitation.show', Controllers\ShowController::class)
-        ->post('/invitations/{code:[a-zA-Z0-9_-]+}/apply', 'group-invitation.apply', Controllers\ApplyController::class)
-        ->delete('/invitations/{id:[0-9]+}', 'group-invitation.delete', Controllers\DeleteController::class),
+        ->get('/group-invitations', 'group-invitation.index', Controllers\IndexController::class)
+        ->post('/group-invitations', 'group-invitation.store', Controllers\StoreController::class)
+        ->get('/group-invitations/{code:[a-zA-Z0-9_-]+}', 'group-invitation.show', Controllers\ShowController::class)
+        ->post('/group-invitations/{code:[a-zA-Z0-9_-]+}/apply', 'group-invitation.apply', Controllers\ApplyController::class)
+        ->delete('/group-invitations/{id:[0-9]+}', 'group-invitation.delete', Controllers\DeleteController::class),
 
     function (Dispatcher $events) {
         $events->subscribe(Access\InvitationPolicy::class);

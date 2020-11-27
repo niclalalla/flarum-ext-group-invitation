@@ -2,11 +2,14 @@
 
 namespace ClarkWinkelmann\GroupInvitation\Controllers;
 
+use ClarkWinkelmann\GroupInvitation\Gampoints;
 use ClarkWinkelmann\GroupInvitation\Invitation;
 use Flarum\Foundation\ValidationException;
 use Flarum\Locale\Translator;
 use Flarum\User\User;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -39,7 +42,6 @@ class ApplyController implements RequestHandlerInterface
          * @var $actor User
          */
         $actor = $request->getAttribute('actor');
-
         $actor->assertCan('use', $invitation);
 
         if (!$actor->groups->contains('id', $invitation->group->id)) {
@@ -48,7 +50,35 @@ class ApplyController implements RequestHandlerInterface
             $invitation->usage_count++;
             $invitation->save();
         }
+        $inviter = $invitation->inviter_id;
+        $inviter = User::query()->where("id","=",$inviter)->first();
+        $user = User::query()->where("id","=",$actor->id)->first();
+        //被邀请人增加20积分
+        User::query()->where("id","=",$actor->id)->update([
+            'points_count' => $user->points_count + 20,
+            'points_total' => $user->points_total + 20,
+        ]);
+        //邀请人增加10积分
+        User::query()->where("id","=",$inviter->id)->update([
+            'points_count' => $inviter->points_count + 10,
+            'points_total' => $inviter->points_total + 10,
+        ]);
+        $pointsLog = new Gampoints();
+        $pointsLog->owner_id = $actor->id;
+        $pointsLog->type = 'be-invited';
+        $pointsLog->amount =20;
+        $pointsLog->current = $user->points_count + 20;
+        $pointsLog->created_at = date("Y-m-d H:i:s");
+        $pointsLog->save();
 
+
+        $pointsLog = new Gampoints();
+        $pointsLog->owner_id = $inviter->id;
+        $pointsLog->type = 'invite';
+        $pointsLog->amount =10;
+        $pointsLog->current = $inviter->points_count + 10;
+        $pointsLog->created_at = date("Y-m-d H:i:s");
+        $pointsLog->save();
         return new EmptyResponse();
     }
 }

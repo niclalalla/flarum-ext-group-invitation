@@ -26,10 +26,12 @@ clarkwinkelmann-group-invitation:
                 code: Code
                 group: Group
                 usage: Usage
+                inviter: inviter
             placeholder:
                 code: Auto-generated
                 group: Select...
                 usage: Empty for unlimited
+                inviter: Empty for administor
             empty: No invitations created so far.
             unlimited: unlimited
             create: Create

@@ -32,6 +32,7 @@ export default class InviteModal extends Modal {
 
         this.newInvitationGroupId = '';
         this.newInvitationMaxUsage = '';
+        this.newInviter = '';
     }
 
     content() {
@@ -41,6 +42,7 @@ export default class InviteModal extends Modal {
                     m('th', app.translator.trans(translationPrefix + 'head.code')),
                     m('th', app.translator.trans(translationPrefix + 'head.group')),
                     m('th', app.translator.trans(translationPrefix + 'head.usage')),
+                    m('th', app.translator.trans(translationPrefix + 'head.inviter')),
                     m('th'),
                 ])),
                 m('tbody', [
@@ -58,6 +60,7 @@ export default class InviteModal extends Modal {
                                 invitation.group().namePlural(),
                             ]),
                             m('td', invitation.usageCount() + '/' + (invitation.maxUsage() === null ? app.translator.trans(translationPrefix + 'unlimited') : invitation.maxUsage())),
+                            m('td',  (invitation.inviter() === null ? app.translator.trans(translationPrefix + 'unlimited') : invitation.inviter())),
                             m('td', Button.component({
                                 className: 'Button Button--danger',
                                 onclick: () => {
@@ -78,7 +81,7 @@ export default class InviteModal extends Modal {
                             }, app.translator.trans(translationPrefix + 'delete'))),
                         ])),
                         this.invitations.length === 0 ? m('tr.NoResultRow', m('td', {
-                            colspan: 4,
+                            colspan: 5,
                         }, m('em', app.translator.trans(translationPrefix + 'empty')))) : null,
                     ],
                     m('tr', [
@@ -99,6 +102,16 @@ export default class InviteModal extends Modal {
                             value: this.newInvitationMaxUsage,
                             placeholder: app.translator.trans(translationPrefix + 'placeholder.usage'),
                         })),
+                        m('td', m('input.FormControl', {
+                            type: 'text',
+                            onchange: event => {
+                                const value = event.target.value;
+                                console.log(value);
+                                this.newInviter = value;
+                            },
+                            value: this.newInviter,
+                            placeholder: app.translator.trans(translationPrefix + 'placeholder.inviter'),
+                        })),
                         m('td', Button.component({
                             className: 'Button Button--primary',
                             onclick: () => {
@@ -110,6 +123,7 @@ export default class InviteModal extends Modal {
                                     body: {
                                         groupId: this.newInvitationGroupId,
                                         maxUsage: this.newInvitationMaxUsage,
+                                        inviter: this.newInviter,
                                     }
                                 }).then(data => {
                                     this.loading = false;
@@ -117,6 +131,7 @@ export default class InviteModal extends Modal {
                                     this.invitations.push(app.store.pushPayload(data));
                                     this.newInvitationGroupId = '';
                                     this.newInvitationMaxUsage = '';
+                                    this.newInviter = '';
                                     m.redraw();
                                 }).catch(e => {
                                     this.loading = false;

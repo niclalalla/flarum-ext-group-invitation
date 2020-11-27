@@ -5,6 +5,7 @@ export default class Invitation extends Model {
     hasUsagesLeft = Model.attribute('hasUsagesLeft');
     canUse = Model.attribute('canUse');
     usageCount = Model.attribute('usageCount');
+    inviter = Model.attribute('inviter');
     maxUsage = Model.attribute('maxUsage');
     createdAt = Model.attribute('createdAt', Model.transformDate);
 

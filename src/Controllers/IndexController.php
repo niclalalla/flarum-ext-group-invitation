@@ -20,6 +20,6 @@ class IndexController extends AbstractListController
     {
         $request->getAttribute('actor')->assertAdmin();
 
-        return Invitation::query()->orderBy('created_at')->get();
+        return Invitation::query()->orderBy('created_at')->get("*");
     }
 }
