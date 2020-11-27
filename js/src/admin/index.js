@@ -7,7 +7,7 @@ console.log("hello niclalalla");
 app.initializers.add('clarkwinkelmann-group-invitation', () => {
     app.extensionSettings['clarkwinkelmann-group-invitation'] = () => app.modal.show(SettingsModal);
 
-    app.store.models['group-invitations'] = Invitation;
+    app.store.models['invitations'] = Invitation;
 
     extend(PermissionGrid.prototype, 'startItems', items => {
         items.add('clarkwinkelmann-group-invitation-use', {
