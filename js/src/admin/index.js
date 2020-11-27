@@ -3,7 +3,7 @@ import app from 'flarum/app';
 import PermissionGrid from 'flarum/components/PermissionGrid';
 import SettingsModal from './components/SettingsModal';
 import Invitation from '../common/Invitation';
-
+console.log("hello niclalalla");
 app.initializers.add('clarkwinkelmann-group-invitation', () => {
     app.extensionSettings['clarkwinkelmann-group-invitation'] = () => app.modal.show(SettingsModal);
 
