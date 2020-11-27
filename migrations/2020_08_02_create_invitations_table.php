@@ -9,6 +9,8 @@ return Migration::createTable(
         $table->increments('id');
         $table->unsignedInteger('group_id');
         $table->string('code')->unique();
+        $table->string('inviter');
+        $table->unsignedInteger('inviter_id');
         $table->unsignedInteger('usage_count')->default(0);
         $table->unsignedInteger('max_usage')->nullable();
         $table->timestamps();
