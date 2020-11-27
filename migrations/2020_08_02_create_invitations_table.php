@@ -4,7 +4,7 @@ use Flarum\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 return Migration::createTable(
-    'clarkwinkelmann_group_invitations',
+    'niclalalla_group_invitations',
     function (Blueprint $table) {
         $table->increments('id');
         $table->unsignedInteger('group_id');
